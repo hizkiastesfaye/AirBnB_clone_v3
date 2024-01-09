@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" unique FileStorage instance for your application """
+"""
+initialize the models package
+"""
 
 from os import getenv
 

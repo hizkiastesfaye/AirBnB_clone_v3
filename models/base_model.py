@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 """
-BaseModel - Module
-Parent class to take care of the initialization,
-serialization and deserialization of instances
- """
+Contains class BaseModel
+"""
 
 from datetime import datetime
 import models
@@ -22,17 +20,14 @@ else:
 
 
 class BaseModel:
-    """
-    BaseModel class Parent class to take care of the initialization,
-    serialization and deserialization of instances
-    """
+    """The BaseModel class from which future classes will be derived"""
     if models.storage_t == "db":
         id = Column(String(60), primary_key=True)
         created_at = Column(DateTime, default=datetime.utcnow)
         updated_at = Column(DateTime, default=datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
-        """Initialization of a BaseModel instance"""
+        """Initialization of the base model"""
         if kwargs:
             for key, value in kwargs.items():
                 if key != "__class__":
@@ -63,8 +58,8 @@ class BaseModel:
         models.storage.new(self)
         models.storage.save()
 
-    def to_dict(self, save_fs=None):
-        """Return dictionary representation of BaseModel class."""
+    def to_dict(self):
+        """returns a dictionary containing all keys/values of the instance"""
         new_dict = self.__dict__.copy()
         if "created_at" in new_dict:
             new_dict["created_at"] = new_dict["created_at"].strftime(time)
@@ -73,11 +68,8 @@ class BaseModel:
         new_dict["__class__"] = self.__class__.__name__
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
-        if save_fs is None:
-            if "password" in new_dict:
-                del new_dict["password"]
         return new_dict
 
     def delete(self):
-        """Delete the current instance from the storage"""
+        """delete the current instance from the storage"""
         models.storage.delete(self)
