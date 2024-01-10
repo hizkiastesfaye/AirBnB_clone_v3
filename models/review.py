@@ -1,5 +1,5 @@
 #!/usr/bin/python
-"""Review Module"""
+""" holds class Review"""
 import models
 from models.base_model import BaseModel, Base
 from os import getenv

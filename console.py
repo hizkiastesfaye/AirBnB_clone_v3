@@ -68,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
             return False
         print(instance.id)
         instance.save()
-        
+
     def do_show(self, arg):
         """Prints an instance as a string based on the class and id"""
         args = shlex.split(arg)
@@ -159,7 +159,6 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
         else:
             print("** class doesn't exist **")
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
